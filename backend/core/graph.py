@@ -1,26 +1,27 @@
-from typing import TypedDict, Optional
-
 from langgraph.graph import StateGraph, END
-
-from .agents import PolicyParsingAgent
+from typing import TypedDict
+from .agents import create_policy_parsing_agent
 from .pydantic_models import PrivacyAnalysis
 
-
-class GraphState(TypedDict):
+# Define the state for our simple graph
+class AnalysisState(TypedDict):
     policy_text: str
-    structured_analysis: Optional[PrivacyAnalysis]
+    structured_analysis: PrivacyAnalysis
 
-
-def run_policy_parser(state: GraphState):
-    print("---RUNNING POLICY PARSER---")
-    parser = PolicyParsingAgent()
-    analysis_result = parser.invoke({"policy_text": state["policy_text"]})
-    return {"structured_analysis": analysis_result}
-
+def analyze_policy_node(state: AnalysisState):
+    """Node that runs the policy parsing agent on the entire document."""
+    print("--- ANALYZING FULL POLICY ---")
+    parser_agent = create_policy_parsing_agent()
+    result = parser_agent.invoke({"policy_text": state["policy_text"]})
+    print("--- ANALYSIS COMPLETE ---")
+    return {"structured_analysis": result}
 
 def build_analysis_graph():
-    workflow = StateGraph(GraphState)
-    workflow.add_node("policy_parser", run_policy_parser)
-    workflow.set_entry_point("policy_parser")
-    workflow.add_edge("policy_parser", END)
+    """Builds the simple LangGraph for policy analysis."""
+    workflow = StateGraph(AnalysisState)
+
+    workflow.add_node("analyze_policy", analyze_policy_node)
+    workflow.set_entry_point("analyze_policy")
+    workflow.add_edge("analyze_policy", END)
+
     return workflow.compile()

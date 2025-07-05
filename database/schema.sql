@@ -1,40 +1,50 @@
--- Enables vector similarity search capabilities in PostgreSQL.
+-- Enable the pgvector extension if it's not already enabled
 CREATE EXTENSION IF NOT EXISTS vector;
 
--- Table to store company information.
-CREATE TABLE companies (
+-- Table for companies
+CREATE TABLE IF NOT EXISTS companies (
     company_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
-    domain VARCHAR(255) UNIQUE NOT NULL,
+    company_name VARCHAR(255) UNIQUE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
--- Table to store privacy policy versions and their text.
-CREATE TABLE privacy_policies (
+-- Table for privacy policies
+CREATE TABLE IF NOT EXISTS privacy_policies (
     policy_id SERIAL PRIMARY KEY,
-    company_id INTEGER NOT NULL REFERENCES companies(company_id),
-    policy_text TEXT,
-    ingested_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    company_id INTEGER NOT NULL,
+    policy_text TEXT NOT NULL,
+    display_title VARCHAR(255), -- Renamable title for chats
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (company_id) REFERENCES companies (company_id)
 );
 
--- Table to store the JSONB output from the analysis agent.
-CREATE TABLE analysis_results (
-    result_id SERIAL PRIMARY KEY,
-    policy_id INTEGER NOT NULL REFERENCES privacy_policies(policy_id) UNIQUE,
-    ran_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    llm_model_used VARCHAR(100),
-    structured_analysis_json JSONB,
-    overall_risk_score INTEGER
+-- Table for analysis results
+CREATE TABLE IF NOT EXISTS analysis_results (
+    analysis_id SERIAL PRIMARY KEY,
+    policy_id INTEGER NOT NULL UNIQUE,
+    pii_collected TEXT[],
+    data_sharing_practices TEXT,
+    retention_summary TEXT,
+    risk_score INTEGER,
+    final_summary TEXT,
+    analyzed_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (policy_id) REFERENCES privacy_policies (policy_id) ON DELETE CASCADE
 );
 
--- Table for the RAG vector store using pgvector.
-CREATE TABLE policy_vectors (
-    vector_id SERIAL PRIMARY KEY,
-    policy_id INTEGER NOT NULL REFERENCES privacy_policies(policy_id),
-    text_chunk TEXT,
-    -- The dimension (768) must match the output of the Google embedding model.
-    embedding VECTOR(768)
+-- Table for policy text vectors for RAG
+CREATE TABLE IF NOT EXISTS policy_vectors (
+    uuid UUID PRIMARY KEY,
+    embedding vector(768),
+    document TEXT,
+    cmetadata JSONB
 );
 
--- Create an index for efficient vector similarity search.
-CREATE INDEX ON policy_vectors USING HNSW (embedding vector_l2_ops);
+-- Table for storing chat messages
+CREATE TABLE IF NOT EXISTS chat_messages (
+    message_id SERIAL PRIMARY KEY,
+    policy_id INTEGER NOT NULL,
+    is_user_message BOOLEAN NOT NULL,
+    message_text TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (policy_id) REFERENCES privacy_policies (policy_id) ON DELETE CASCADE
+);

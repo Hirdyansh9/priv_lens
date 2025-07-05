@@ -2,12 +2,15 @@
 langchain
 langchain-core
 langchain-community
+lxml
 langchain-google-genai
+langchain-openai
 langgraph
 langchain-tavily
-langchain-groq
+# langchain-groq
 
-# Data Validation
+fastembed
+
 pydantic
 
 # Database and Vectors
@@ -17,3 +20,16 @@ sqlalchemy
 
 # Environment
 python-dotenv
+
+fastapi
+uvicorn[standard]
+tiktoken
+aiofiles
+psycopg2-binary
+
+Flask
+Flask-Cors
+
+requests
+beautifulsoup4
+
