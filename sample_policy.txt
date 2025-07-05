@@ -1,0 +1,52 @@
+Privacy Policy for ConnectSphere
+
+Last Updated: July 1, 2025
+
+This Privacy Policy describes how ConnectSphere Inc. ("we," "us," or "our") collects, uses, and shares information about you when you use our website, mobile applications, and services (collectively, the "Services"). Our primary domain is connectsphere.io.
+
+1. Information We Collect
+
+We collect several types of information to provide and improve our Services to you:
+
+a. Information You Provide to Us:
+- Account Information: When you create an account, we collect your full name, email address, and password.
+- Profile Information: You may choose to provide additional information for your profile, such as a profile picture, contact number, and biography.
+- Payment Information: To process payments for premium services, we collect your credit card details and billing address through our third-party payment processor, FinPay.
+
+b. Information We Collect Automatically:
+- Device Information: We collect information about the device you use to access our Services, including your IP address, operating system, browser type, and unique device identifiers.
+- Location Data: With your consent, we may collect precise geolocation data from your mobile device to offer location-based features.
+- Usage Information: We log how you interact with our Services, such as the features you use, the content you view, and the time, frequency, and duration of your activities.
+
+2. How We Use Your Information
+
+We use the information we collect for various purposes, including to:
+- Provide, maintain, and improve our Services.
+- Personalize your experience.
+- Communicate with you about products, services, and offers.
+- Process transactions and send you related information.
+- Monitor and analyze trends, usage, and activities in connection with our Services.
+
+3. How We Share Your Information
+
+We may share your information in the following situations:
+
+- With Service Providers: We share information with third-party vendors who perform services on our behalf, such as cloud hosting (AWS), payment processing (FinPay), and customer support. These providers are only given access to the information necessary to perform these tasks.
+
+- With Advertising Partners: We may share certain information, such as your location data and usage information, with our third-party advertising partners to deliver targeted advertisements that may be of interest to you.
+
+- With Affiliates: We may share information with our affiliates and subsidiaries for business purposes consistent with this Privacy Policy.
+
+- For Legal Reasons: We may disclose your information if we believe that disclosure is necessary to comply with any applicable law, regulation, legal process, or governmental request.
+
+4. Data Retention
+
+We retain your personal information for as long as your account is active with us. We may also retain some of your information for a reasonable period thereafter to comply with our legal obligations, resolve disputes, and enforce our agreements. A specific retention schedule is maintained internally.
+
+5. Your Rights and Choices
+
+You have certain rights regarding your personal information, including the right to access, correct, or delete your data. You can manage your account information through your profile settings or by contacting us directly.
+
+6. Contact Us
+
+If you have any questions about this Privacy Policy, please contact us at privacy@connectsphere.io.

@@ -1,0 +1,19 @@
+# Core AI and LangChain
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+langgraph
+langchain-tavily
+langchain-groq
+
+# Data Validation
+pydantic
+
+# Database and Vectors
+psycopg2-binary
+pgvector
+sqlalchemy
+
+# Environment
+python-dotenv
