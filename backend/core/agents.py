@@ -28,7 +28,6 @@ def create_policy_parsing_agent():
         ]
     )
     
-    # Use the powerful model for the single analysis call
     llm = ChatGroq(model="llama3-70b-8192", temperature=0)
     
     structured_llm = llm.with_structured_output(PrivacyAnalysis)

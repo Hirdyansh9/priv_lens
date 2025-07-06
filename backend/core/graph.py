@@ -3,7 +3,6 @@ from typing import TypedDict
 from .agents import create_policy_parsing_agent
 from .pydantic_models import PrivacyAnalysis
 
-# Define the state for our simple graph
 class AnalysisState(TypedDict):
     policy_text: str
     structured_analysis: PrivacyAnalysis

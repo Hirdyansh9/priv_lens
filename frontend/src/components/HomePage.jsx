@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import { Loader, FileText, Link, Type, Search } from "lucide-react";
 
-// Set up the PDF.js worker to avoid errors in Vite
+// Set up the PDF.js worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 // A reusable loader icon component for the main button
@@ -135,7 +135,6 @@ const HomePage = ({ onAnalysisComplete, onAnalysisCreated }) => {
   return (
     <div className="flex items-center justify-center min-h-full p-4 bg-neutral-50">
       <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* --- FIX: Added a negative top margin here to move the branding up on larger screens --- */}
         <div className="text-center md:text-left md:-mt-8">
           <div className="inline-flex items-center gap-4 mb-6">
             <div className="w-16 h-16 bg-neutral-900 rounded-2xl flex items-center justify-center shadow-lg">

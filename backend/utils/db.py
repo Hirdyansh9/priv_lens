@@ -98,7 +98,6 @@ def save_analysis_results(policy_text, analysis_data):
             cur.execute("INSERT INTO companies (company_name) VALUES (%s) RETURNING company_id", (analysis_data.company_name,))
             company_id = cur.fetchone()[0]
         
-        # Insert policy and set the display_title in one go
         cur.execute(
             "INSERT INTO privacy_policies (company_id, policy_text, display_title) VALUES (%s, %s, %s) RETURNING policy_id",
             (company_id, policy_text, analysis_data.company_name)

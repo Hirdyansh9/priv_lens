@@ -8,7 +8,7 @@ function App() {
   const [activeChat, setActiveChat] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // This key is used to force a refresh of the Layout component's chat list
+  // Key to force a refresh of the Layout component's chat list
   const [layoutKey, setLayoutKey] = useState(Date.now());
 
   useEffect(() => {
@@ -32,7 +32,8 @@ function App() {
     };
 
     window.addEventListener("hashchange", handleHashChange);
-    handleHashChange(); // Initial load
+    // Initial load
+    handleHashChange();
 
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);

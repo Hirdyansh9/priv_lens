@@ -58,7 +58,6 @@ def analyze():
 
     return jsonify({"policy_id": policy_id})
 
-# --- (All other routes like /api/chats, /api/chat, etc., remain unchanged) ---
 @app.route('/api/chats', methods=['GET'])
 def fetch_all_chats():
     try:

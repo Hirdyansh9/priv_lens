@@ -5,8 +5,6 @@ def get_text_from_url(url: str) -> str:
     Fetches and extracts clean text content from a URL using LangChain's WebBaseLoader.
     """
     try:
-        # Instantiate the loader with the provided URL
-        # The loader automatically handles fetching and parsing the HTML
         loader = WebBaseLoader(
             web_path=url,
             header_template={
@@ -14,10 +12,8 @@ def get_text_from_url(url: str) -> str:
             }
         )
 
-        # Load the documents. This returns a list of Document objects.
         documents = loader.load()
 
-        # Check if any content was loaded
         if not documents or not documents[0].page_content:
             raise ValueError("The loader could not extract any meaningful content from the URL. The page might be empty or rendered with complex JavaScript.")
             
@@ -30,7 +26,7 @@ def get_text_from_url(url: str) -> str:
         return full_text
 
     except Exception as e:
-        # Catch any error from the loader (e.g., network issues, 404s) and re-raise
-        # as a more generic error for the frontend.
+        # Catch any error from the loader (e.g., network issues, 404s) 
+        # and re-raise as a more generic error for the frontend.
         print(f"WebBaseLoader failed for URL {url}: {e}")
         raise ConnectionError(f"Could not load content from the provided URL. Please check the link and try again.")

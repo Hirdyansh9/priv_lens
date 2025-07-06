@@ -12,7 +12,7 @@ import {
   Check,
 } from "lucide-react";
 
-// This custom hook for using localStorage is unchanged
+// Custom hook for using localStorage
 const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -153,7 +153,6 @@ const ExpandedSidebar = ({ onToggle, searchInputRef, ...props }) => {
       </div>
       <div className="relative mb-2">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500" />
-        {/* --- FIX: The search input now uses the ref --- */}
         <input
           ref={searchInputRef}
           type="text"
@@ -227,7 +226,6 @@ const CollapsedSidebar = ({ onToggle, onNewAnalysis, onSearchClick }) => (
     >
       <Plus className="w-5 h-5" />
     </button>
-    {/* --- FIX: The search button now calls onSearchClick --- */}
     <button
       onClick={onSearchClick}
       className="p-3 text-neutral-400 hover:text-white hover:bg-neutral-700 rounded-lg"
@@ -246,7 +244,7 @@ const Layout = ({ children, activeChatId, onAnalysisCreated }) => {
   const [chats, setChats] = useState([]);
   const [isLoadingChats, setIsLoadingChats] = useState(true);
   const [pinnedChatIds, setPinnedChatIds] = useLocalStorage("pinnedChats", []);
-  const searchInputRef = useRef(null); // --- FIX: Create a ref for the search input ---
+  const searchInputRef = useRef(null);
 
   const fetchChats = async () => {
     setIsLoadingChats(true);
