@@ -7,7 +7,7 @@ langchain-google-genai
 langchain-openai
 langgraph
 langchain-tavily
-# langchain-groq
+langchain-groq 
 
 fastembed
 
@@ -29,7 +29,9 @@ psycopg2-binary
 
 Flask
 Flask-Cors
+Flask-Login
+Werkzeug
+passlib
 
 requests
 beautifulsoup4
-

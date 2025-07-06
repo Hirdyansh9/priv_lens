@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import {
   Menu,
   X,
@@ -10,9 +10,11 @@ import {
   Trash2,
   Edit,
   Check,
+  LogOut,
 } from "lucide-react";
+import DeleteConfirmationModal from "./DeletePopUp"; // Import the new modal component
 
-// Custom hook for using localStorage
+// useLocalStorage hooks
 const useLocalStorage = (key, initialValue) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
@@ -30,18 +32,17 @@ const useLocalStorage = (key, initialValue) => {
   return [storedValue, setValue];
 };
 
+// ChatItem component
 const ChatItem = ({ chat, isActive, onSelect, onAction, isPinned }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(chat.title);
   const inputRef = useRef(null);
-
   useEffect(() => {
     if (isEditing) {
       inputRef.current?.focus();
       inputRef.current?.select();
     }
   }, [isEditing]);
-
   const handleRename = (e) => {
     e.stopPropagation();
     if (title.trim() && title !== chat.title) {
@@ -49,7 +50,6 @@ const ChatItem = ({ chat, isActive, onSelect, onAction, isPinned }) => {
     }
     setIsEditing(false);
   };
-
   return (
     <div
       onClick={() => !isEditing && onSelect(chat.policy_id)}
@@ -120,11 +120,11 @@ const ChatItem = ({ chat, isActive, onSelect, onAction, isPinned }) => {
   );
 };
 
-const ExpandedSidebar = ({ onToggle, searchInputRef, ...props }) => {
+// ExpandedSidebar and CollapsedSidebar
+const ExpandedSidebar = ({ onToggle, searchInputRef, onLogout, ...props }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const { chats, activeChatId, pinnedChatIds, isLoading, onSelect, onAction } =
     props;
-
   const filteredChats = chats.filter((chat) =>
     chat.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -134,7 +134,6 @@ const ExpandedSidebar = ({ onToggle, searchInputRef, ...props }) => {
   const unpinnedChats = filteredChats.filter(
     (c) => !pinnedChatIds.includes(c.policy_id)
   );
-
   return (
     <div className="h-full w-72 bg-neutral-900 text-white flex flex-col p-3">
       <div className="flex items-center justify-between mb-4">
@@ -206,10 +205,18 @@ const ExpandedSidebar = ({ onToggle, searchInputRef, ...props }) => {
           </>
         )}
       </nav>
+      <div className="mt-auto pt-4 border-t border-neutral-800">
+        <button
+          onClick={onLogout}
+          className="w-full flex items-center gap-3 px-3 py-2 text-neutral-300 hover:bg-red-800 hover:text-white rounded-lg transition-colors"
+        >
+          <LogOut className="w-4 h-4" />
+          <span className="text-sm font-semibold">Logout</span>
+        </button>
+      </div>
     </div>
   );
 };
-
 const CollapsedSidebar = ({ onToggle, onNewAnalysis, onSearchClick }) => (
   <div className="h-full w-20 bg-neutral-900 text-white flex flex-col items-center p-3 gap-4">
     <button
@@ -236,7 +243,8 @@ const CollapsedSidebar = ({ onToggle, onNewAnalysis, onSearchClick }) => (
   </div>
 );
 
-const Layout = ({ children, activeChatId, onAnalysisCreated }) => {
+// Main Layout
+const Layout = ({ children, activeChatId, user, onLogout, refreshTrigger }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorage(
     "sidebarOpen",
     true
@@ -246,7 +254,11 @@ const Layout = ({ children, activeChatId, onAnalysisCreated }) => {
   const [pinnedChatIds, setPinnedChatIds] = useLocalStorage("pinnedChats", []);
   const searchInputRef = useRef(null);
 
-  const fetchChats = async () => {
+  // --- NEW STATE FOR MODAL ---
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [chatToDelete, setChatToDelete] = useState(null); // Will hold { policyId, title }
+
+  const fetchChats = useCallback(async () => {
     setIsLoadingChats(true);
     try {
       const response = await fetch("/api/chats");
@@ -257,24 +269,24 @@ const Layout = ({ children, activeChatId, onAnalysisCreated }) => {
     } finally {
       setIsLoadingChats(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchChats();
-  }, [onAnalysisCreated]);
+    if (user) {
+      fetchChats();
+    }
+  }, [user, refreshTrigger, fetchChats]);
 
   const handleSelectChat = (policyId) => {
     window.location.hash = policyId ? `#${policyId}` : "";
   };
 
-  const handleSearchClick = () => {
-    setIsSidebarOpen(true);
-    // Use a short timeout to ensure the input is visible before focusing
-    setTimeout(() => {
-      searchInputRef.current?.focus();
-    }, 100);
+  const handleLogout = async () => {
+    await fetch("/api/logout", { method: "POST" });
+    onLogout();
   };
 
+  // --- MODIFIED handleChatAction to open the modal ---
   const handleChatAction = async (action, payload) => {
     const { policyId, newTitle } = payload;
     switch (action) {
@@ -284,59 +296,97 @@ const Layout = ({ children, activeChatId, onAnalysisCreated }) => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ title: newTitle }),
         });
+        await fetchChats();
         break;
+
       case "delete":
-        if (window.confirm("Are you sure you want to delete this chat?")) {
-          await fetch(`/api/chats/${policyId}`, { method: "DELETE" });
-          if (activeChatId === policyId) handleSelectChat(null);
+        // Find the chat details and set state to open the modal
+        const chat = chats.find((c) => c.policy_id === policyId);
+        if (chat) {
+          setChatToDelete({ policyId: chat.policy_id, title: chat.title });
+          setIsDeleteModalOpen(true);
         }
         break;
+
       case "pin":
         setPinnedChatIds((prev) =>
           prev.includes(policyId)
             ? prev.filter((id) => id !== policyId)
             : [...prev, policyId]
         );
-        return;
+        break;
       default:
         break;
     }
+  };
+
+  // --- deletion on confirmation ---
+  const confirmDelete = async () => {
+    if (!chatToDelete) return;
+
+    await fetch(`/api/chats/${chatToDelete.policyId}`, { method: "DELETE" });
+
+    // If the active chat is the one being deleted, navigate to the homepage
+    if (String(activeChatId) === String(chatToDelete.policyId)) {
+      handleSelectChat(null);
+    }
+
+    // Close modal and refresh the chat list
+    setIsDeleteModalOpen(false);
+    setChatToDelete(null);
     await fetchChats();
   };
 
+  const handleSearchClick = () => {
+    setIsSidebarOpen(true);
+    setTimeout(() => {
+      searchInputRef.current?.focus();
+    }, 100);
+  };
+
   return (
-    <div className="h-screen w-screen flex bg-neutral-100 overflow-hidden">
-      <div
-        className={`flex-shrink-0 bg-neutral-900 transition-all duration-300 ease-in-out ${
-          isSidebarOpen ? "w-72" : "w-20"
-        }`}
-      >
-        {isSidebarOpen ? (
-          <ExpandedSidebar
-            onToggle={() => setIsSidebarOpen(false)}
-            searchInputRef={searchInputRef}
-            {...{
-              chats,
-              activeChatId,
-              pinnedChatIds,
-              isLoading: isLoadingChats,
-            }}
-            onSelect={handleSelectChat}
-            onAction={handleChatAction}
-          />
-        ) : (
-          <CollapsedSidebar
-            onToggle={() => setIsSidebarOpen(true)}
-            onNewAnalysis={() => handleSelectChat(null)}
-            onSearchClick={handleSearchClick}
-          />
-        )}
+    // Use a React Fragment to render the modal alongside the main layout
+    <>
+      <div className="h-screen w-screen flex bg-neutral-100 overflow-hidden">
+        <div
+          className={`flex-shrink-0 bg-neutral-900 transition-all duration-300 ease-in-out ${
+            isSidebarOpen ? "w-72" : "w-20"
+          }`}
+        >
+          {isSidebarOpen ? (
+            <ExpandedSidebar
+              onToggle={() => setIsSidebarOpen(false)}
+              searchInputRef={searchInputRef}
+              {...{
+                chats,
+                activeChatId,
+                pinnedChatIds,
+                isLoading: isLoadingChats,
+              }}
+              onSelect={handleSelectChat}
+              onAction={handleChatAction}
+              onLogout={handleLogout}
+            />
+          ) : (
+            <CollapsedSidebar
+              onToggle={() => setIsSidebarOpen(true)}
+              onNewAnalysis={() => handleSelectChat(null)}
+              onSearchClick={handleSearchClick}
+            />
+          )}
+        </div>
+        <main className="flex-1 min-w-0 h-full overflow-y-auto">
+          {children}
+        </main>
       </div>
 
-      <main className="flex-1 min-w-0 h-full overflow-y-auto">
-        {React.cloneElement(children, { onAnalysisCreated: fetchChats })}
-      </main>
-    </div>
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={confirmDelete}
+        chatTitle={chatToDelete?.title || ""}
+      />
+    </>
   );
 };
 

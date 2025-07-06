@@ -1,19 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
+import { marked } from "marked";
 import {
   Bot,
   User,
   Shield,
   AlertTriangle,
   CheckCircle,
-  ArrowUp,
+  Send,
   Search,
+  Loader,
 } from "lucide-react";
 
-// The clean header component for the chatbot page
+// Helper component to render markdown content safely
+const MarkdownRenderer = ({ content, className }) => {
+  if (!content) return null;
+  const html = marked(content, { gfm: true, breaks: true });
+  return (
+    <div className={className} dangerouslySetInnerHTML={{ __html: html }} />
+  );
+};
+
+// The original ChatHeader component, aligned to the left
 const ChatHeader = () => (
   <header className="border-b border-neutral-200 bg-white sticky top-0 z-10">
-    <div className="max-w-5xl mx-auto px-6 py-4">
+    <div className="px-6 py-4">
       <div className="flex items-center justify-start">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-neutral-900 rounded-lg flex items-center justify-center">
@@ -28,7 +38,7 @@ const ChatHeader = () => (
   </header>
 );
 
-// The analysis summary card
+// --- AnalysisSummary ---
 const AnalysisSummary = ({ summary }) => {
   const getRiskColor = (score) => {
     if (score > 6) return "text-red-500";
@@ -53,70 +63,70 @@ const AnalysisSummary = ({ summary }) => {
 
   return (
     <div className="bg-white rounded-2xl border border-neutral-200 overflow-hidden">
-      <div className="px-8 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
-                Company
+      <div className="p-6">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-neutral-200 pb-4 mb-4">
+          <div className="text-center md:text-left">
+            {/* <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
+              Company
+            </p> */}
+            <h2 className="text-2xl font-bold text-neutral-800 tracking-tight mt-1">
+              {summary.company_name || "Unknown"}
+            </h2>
+          </div>
+          <div className="flex-shrink-0 text-center md:text-right">
+            {/* <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-2">
+              Risk Assessment
+            </p> */}
+            <div
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border ${getRiskBgColor(
+                summary.risk_score
+              )}`}
+            >
+              <div className={getRiskColor(summary.risk_score)}>
+                {getRiskIcon(summary.risk_score)}
               </div>
-              <div className="text-xl font-bold text-neutral-900">
-                {summary.company_name}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
-                Risk Assessment
-              </div>
-              <div
-                className={`inline-flex items-center gap-2 px-3 py-2 rounded-full border ${getRiskBgColor(
+              <span
+                className={`font-semibold text-base ${getRiskColor(
                   summary.risk_score
                 )}`}
               >
-                <div className={getRiskColor(summary.risk_score)}>
-                  {getRiskIcon(summary.risk_score)}
-                </div>
-                <span
-                  className={`font-semibold text-sm ${getRiskColor(
-                    summary.risk_score
-                  )}`}
-                >
-                  {getRiskLabel(summary.risk_score)}
-                </span>
-                <div className="w-px h-4 bg-neutral-300 mx-1"></div>
-                <span
-                  className={`font-bold text-sm ${getRiskColor(
-                    summary.risk_score
-                  )}`}
-                >
-                  {summary.risk_score}/10
-                </span>
-              </div>
+                {getRiskLabel(summary.risk_score)}
+              </span>
+              <div className="w-px h-4 bg-neutral-300 mx-1"></div>
+              <span
+                className={`font-bold text-base ${getRiskColor(
+                  summary.risk_score
+                )}`}
+              >
+                {summary.risk_score}/10
+              </span>
             </div>
           </div>
-          <div className="space-y-3">
-            <div className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">
-              Summary
-            </div>
-            <p className="text-sm text-neutral-700 leading-relaxed">
-              {summary.final_summary}
-            </p>
-          </div>
+        </div>
+        {/* Bottom area for summary */}
+        <div>
+          <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider">
+            Summary
+          </p>
+          <p className="text-sm text-neutral-700 leading-relaxed mt-2">
+            {summary.final_summary}
+          </p>
         </div>
       </div>
     </div>
   );
 };
 
-// Components for User messages, Bot messages, and Loading indicator
+// Components for User messages, Bot messages and Loading indicator
 const UserMessage = ({ message }) => (
   <div className="px-6 py-4 animate-fadeIn">
     <div className="max-w-5xl mx-auto flex justify-end">
       <div className="flex items-end gap-3 max-w-3xl">
         <div className="bg-neutral-900 text-white rounded-2xl rounded-br-md px-4 py-3 shadow-md">
-          <ReactMarkdown className="prose prose-sm prose-invert max-w-none">
-            {message.text}
-          </ReactMarkdown>
+          <MarkdownRenderer
+            content={message.text}
+            className="prose prose-sm prose-invert max-w-none"
+          />
         </div>
         <div className="w-8 h-8 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
           <User className="w-4 h-4 text-white" />
@@ -133,9 +143,10 @@ const BotMessage = ({ message }) => (
           <Bot className="w-4 h-4 text-neutral-700" />
         </div>
         <div className="flex-1 min-w-0">
-          <ReactMarkdown className="prose prose-neutral max-w-none text-left">
-            {message.text}
-          </ReactMarkdown>
+          <MarkdownRenderer
+            content={message.text}
+            className="prose prose-neutral max-w-none text-left"
+          />
         </div>
       </div>
     </div>
@@ -164,23 +175,39 @@ const LoadingMessage = () => (
 );
 
 const Chatbot = ({ result }) => {
-  const { policy_id, analysis_summary, messages: initialMessages } = result;
+  if (!result || !result.analysis) {
+    return (
+      <div className="flex flex-col h-screen bg-neutral-50">
+        <ChatHeader />
+        <div className="flex-1 flex items-center justify-center">
+          <Loader className="w-8 h-8 animate-spin text-neutral-500" />
+          <p className="ml-4 text-neutral-600">Loading analysis...</p>
+        </div>
+      </div>
+    );
+  }
 
+  const { policy_id, analysis, history: initialMessages = [] } = result;
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Effect to update messages when a new chat is loaded from history
   useEffect(() => {
-    setMessages(
-      initialMessages || [
+    const formattedMessages = initialMessages.map((msg) => ({
+      ...msg,
+      user: msg.is_user,
+    }));
+    if (formattedMessages.length === 0) {
+      setMessages([
         {
           text: "Hello! I've analyzed this policy. Ask me anything to get started.",
           user: false,
         },
-      ]
-    );
+      ]);
+    } else {
+      setMessages(formattedMessages);
+    }
   }, [initialMessages, policy_id]);
 
   const scrollToBottom = () => {
@@ -192,13 +219,17 @@ const Chatbot = ({ result }) => {
     if (input.trim() && !isLoading) {
       const userMessage = { text: input, user: true };
       setMessages((prev) => [...prev, userMessage]);
+      const currentInput = input;
       setInput("");
       setIsLoading(true);
       try {
         const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question: input, policy_id: policy_id }),
+          body: JSON.stringify({
+            question: currentInput,
+            policy_id: policy_id,
+          }),
         });
         const data = await response.json();
         if (!response.ok)
@@ -233,12 +264,10 @@ const Chatbot = ({ result }) => {
   return (
     <div className="flex flex-col h-screen bg-neutral-50">
       <ChatHeader />
-
       <div className="flex-1 overflow-y-auto">
         <div className="max-w-5xl mx-auto px-6 py-8">
-          <AnalysisSummary summary={analysis_summary} />
+          <AnalysisSummary summary={analysis} />
         </div>
-
         <div className="pb-6">
           {messages.map((msg, index) =>
             msg.user ? (
@@ -251,7 +280,6 @@ const Chatbot = ({ result }) => {
           <div ref={messagesEndRef} />
         </div>
       </div>
-
       <div className="border-t border-neutral-200 bg-white/80 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6 py-4">
           <div className="flex items-end gap-3">
@@ -275,7 +303,7 @@ const Chatbot = ({ result }) => {
               disabled={isLoading || !input.trim()}
               className={`${sendButtonClasses} text-white rounded-xl disabled:cursor-not-allowed flex items-center justify-center min-w-[48px] min-h-[48px] p-3`}
             >
-              <ArrowUp className="w-4 h-4" />
+              <Send className="w-5 h-5" />
             </button>
           </div>
           <p className="text-xs text-neutral-500 text-center mt-3">

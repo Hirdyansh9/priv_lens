@@ -2,52 +2,90 @@ import React, { useState, useEffect } from "react";
 import Layout from "./components/Layout";
 import HomePage from "./components/HomePage";
 import Chatbot from "./components/Chatbot";
+import LoginPage from "./components/LoginPage";
+import SignUpPage from "./components/SignUpPage";
 import { Loader } from "lucide-react";
 
 function App() {
   const [activeChat, setActiveChat] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true); // Manages loading state for async operations
+  const [user, setUser] = useState(null);
+  const [authMode, setAuthMode] = useState("login");
+  const [refreshChats, setRefreshChats] = useState(false); // Triggers chat list refresh
 
-  // Key to force a refresh of the Layout component's chat list
-  const [layoutKey, setLayoutKey] = useState(Date.now());
-
+  // Effect for checking user session on initial app load
   useEffect(() => {
+    const checkSession = async () => {
+      setIsLoading(true);
+      try {
+        const response = await fetch("/api/session");
+        const data = await response.json();
+        if (data.isLoggedIn) {
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.error("Session check failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    checkSession();
+  }, []); // Empty dependency array ensures this runs only once
+
+  // Effect for handling chat history based on the URL hash (#)
+  useEffect(() => {
+    if (!user) return; // Don't run if the user is not logged in
+
     const handleHashChange = async () => {
       const hash = window.location.hash.substring(1);
-      setIsLoading(true);
       if (hash && !isNaN(hash)) {
+        setIsLoading(true); // Set loading before fetching
+        setActiveChat(null); // Clear previous chat to prevent showing stale data
         try {
           const response = await fetch(`/api/chats/${hash}`);
-          if (!response.ok) throw new Error("Chat not found");
+          if (!response.ok) {
+            window.location.hash = ""; // Clear hash if chat is not found
+            throw new Error("Chat not found");
+          }
           const data = await response.json();
-          setActiveChat(data);
+          setActiveChat(data); // Set the new chat data
         } catch (error) {
           console.error("Failed to fetch chat history:", error);
-          window.location.hash = "";
+          setActiveChat(null);
+        } finally {
+          setIsLoading(false); // Unset loading after fetch completes
         }
       } else {
-        setActiveChat(null);
+        setActiveChat(null); // If no hash, no active chat
       }
-      setIsLoading(false);
     };
 
     window.addEventListener("hashchange", handleHashChange);
-    // Initial load
-    handleHashChange();
+    handleHashChange(); // Run on initial load to check for a hash
 
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
+  }, [user]); // This effect runs when the user logs in
 
-  const handleAnalysisComplete = (result) => {
-    // When a new analysis is done, update the layout key to trigger a refetch of the chat list
-    setLayoutKey(Date.now());
-    window.location.hash = `#${result.policy_id}`;
+  const handleLogin = (userData) => {
+    setUser(userData);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    setActiveChat(null);
+    window.location.hash = "";
+  };
+
+  const handleAnalysisComplete = (result) => {
+    setRefreshChats((prev) => !prev); // Trigger a refresh of the chat list in the sidebar
+    window.location.hash = `#${result.policy_id}`; // Navigate to the new chat
+  };
+
+  // Determines what content to show in the main area
   const renderContent = () => {
     if (isLoading) {
       return (
-        <div className="flex h-full w-full items-center justify-center bg-neutral-50">
+        <div className="flex h-full w-full items-center justify-center">
           <Loader className="w-8 h-8 animate-spin text-neutral-500" />
         </div>
       );
@@ -58,11 +96,41 @@ function App() {
     return <HomePage onAnalysisComplete={handleAnalysisComplete} />;
   };
 
+  // Shows a loader during the initial session check
+  if (isLoading && !user) {
+    return (
+      <div className="flex h-full w-full items-center justify-center bg-neutral-50">
+        <Loader className="w-8 h-8 animate-spin text-neutral-500" />
+      </div>
+    );
+  }
+
+  // Shows the Login/Signup pages if no user is authenticated
+  if (!user) {
+    if (authMode === "login") {
+      return (
+        <LoginPage
+          onLogin={handleLogin}
+          onSwitchToSignup={() => setAuthMode("signup")}
+        />
+      );
+    }
+    return (
+      <SignUpPage
+        onSignupSuccess={() => setAuthMode("login")}
+        onSwitchToLogin={() => setAuthMode("login")}
+      />
+    );
+  }
+
+  // Renders the main application if the user is logged in
   return (
     <div className="App">
       <Layout
-        key={layoutKey}
         activeChatId={activeChat ? activeChat.policy_id : null}
+        user={user}
+        onLogout={handleLogout}
+        refreshTrigger={refreshChats}
       >
         {renderContent()}
       </Layout>

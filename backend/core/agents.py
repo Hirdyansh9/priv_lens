@@ -1,35 +1,37 @@
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers.json import JsonOutputParser
+from pydantic.v1 import BaseModel
+
 from .pydantic_models import PrivacyAnalysis
 
-def create_policy_parsing_agent():
+def create_analysis_agent(llm):
     """
-    Creates an agent to analyze and parse a complete privacy policy document.
+    Creates an agent that analyzes a privacy policy and extracts structured data.
     """
-    parsing_prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                """You are an expert privacy policy analyst. Your task is to carefully read the provided privacy policy text and extract key information.
+    parser = JsonOutputParser(pydantic_object=PrivacyAnalysis)
 
-                You must format your response according to the provided JSON schema.
-                - company_name: Identify the company name.
-                - pii_collected: List all types of personally identifiable information (PII) mentioned.
-                - data_sharing_practices: Summarize who the company shares data with.
-                - retention_summary: Summarize how long the data is kept.
-                - risk_score: Provide a risk score from 1-10 (1=low risk, 10=high risk).
-                - final_summary: Provide a final summary that also justifies the risk score.
-                """
-            ),
-            (
-                "user",
-                "Here is the privacy policy text:\n\n{policy_text}"
-            ),
-        ]
+    prompt = ChatPromptTemplate.from_messages([
+        ("system", """
+            You are a specialized legal AI assistant. Your task is to analyze a given privacy policy text 
+            and extract key information based on a predefined JSON schema. 
+            
+            Analyze the following sections carefully:
+            1.  **Company Name**: Identify the name of the company or service this policy belongs to.
+            2.  **Personally Identifiable Information (PII)**: List all types of PII collected (e.g., name, email, IP address, location data).
+            3.  **Data Sharing Practices**: Summarize with whom the data is shared (e.g., third parties, affiliates, for legal reasons).
+            4.  **Data Retention**: Summarize the policy's statements on how long user data is stored.
+            5.  **Risk Score**: Assign a risk score from 1 (very low risk) to 10 (very high risk) based on the amount and sensitivity of PII collected and the breadth of data sharing. Justify the score briefly.
+            6.  **Final Summary**: Provide a concise, easy-to-understand summary of the entire policy.
+
+            {format_instructions}
+        """),
+        ("human", "Here is the privacy policy text:\n\n{policy_text}")
+    ]).partial(format_instructions=parser.get_format_instructions())
+
+    return (
+        {"policy_text": RunnablePassthrough()}
+        | prompt
+        | llm
+        | parser
     )
-    
-    llm = ChatGroq(model="llama3-70b-8192", temperature=0)
-    
-    structured_llm = llm.with_structured_output(PrivacyAnalysis)
-    
-    return parsing_prompt | structured_llm
