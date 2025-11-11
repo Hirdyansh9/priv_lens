@@ -1,0 +1,212 @@
+GENERAL DATA PROTECTION REGULATION (GDPR) - KEY REQUIREMENTS
+
+REGULATION (EU) 2016/679 OF THE EUROPEAN PARLIAMENT AND OF THE COUNCIL
+
+===== CHAPTER 1: GENERAL PROVISIONS =====
+
+Article 5 - Principles relating to processing of personal data
+1. Personal data shall be:
+   (a) processed lawfully, fairly and in a transparent manner ('lawfulness, fairness and transparency')
+   (b) collected for specified, explicit and legitimate purposes ('purpose limitation')
+   (c) adequate, relevant and limited to what is necessary ('data minimisation')
+   (d) accurate and, where necessary, kept up to date ('accuracy')
+   (e) kept in a form which permits identification of data subjects for no longer than necessary ('storage limitation')
+   (f) processed in a manner that ensures appropriate security ('integrity and confidentiality')
+
+Article 6 - Lawfulness of processing
+1. Processing shall be lawful only if at least one of the following applies:
+   (a) the data subject has given consent
+   (b) processing is necessary for the performance of a contract
+   (c) processing is necessary for compliance with a legal obligation
+   (d) processing is necessary to protect vital interests
+   (e) processing is necessary for a task carried out in the public interest
+   (f) processing is necessary for legitimate interests pursued by the controller
+
+===== CHAPTER 2: PRINCIPLES =====
+
+Article 7 - Conditions for consent
+1. Controller must be able to demonstrate that data subject has consented
+2. Request for consent must be clearly distinguishable, intelligible and easily accessible
+3. Data subject has right to withdraw consent at any time
+4. Consent must be freely given, specific, informed and unambiguous
+
+Article 12 - Transparent information, communication and modalities
+1. Controller shall take appropriate measures to provide information in a concise, transparent, intelligible and easily accessible form
+2. Information shall be provided in writing, or by other means, including electronic means
+3. Controller shall facilitate the exercise of data subject rights
+
+Article 13 - Information to be provided where personal data are collected
+Must provide:
+- Identity and contact details of controller
+- Contact details of data protection officer (if applicable)
+- Purposes of processing and legal basis
+- Legitimate interests (if applicable)
+- Recipients or categories of recipients
+- Details of transfers to third countries
+- Retention periods or criteria
+- Data subject rights (access, rectification, erasure, restriction, portability, objection)
+- Right to withdraw consent
+- Right to lodge complaint with supervisory authority
+- Whether provision of data is statutory/contractual requirement
+- Existence of automated decision-making including profiling
+
+===== CHAPTER 3: RIGHTS OF THE DATA SUBJECT =====
+
+Article 15 - Right of access by the data subject
+Data subject has right to obtain confirmation of processing and access to:
+- Purposes of processing
+- Categories of personal data
+- Recipients of data
+- Retention periods
+- Rights to rectification, erasure, restriction, or objection
+- Right to lodge complaint
+- Source of data (if not collected from subject)
+- Existence of automated decision-making and profiling
+
+Article 16 - Right to rectification
+Data subject has right to obtain rectification of inaccurate personal data without undue delay
+
+Article 17 - Right to erasure ('right to be forgotten')
+Data subject has right to obtain erasure of personal data when:
+- Data no longer necessary for purposes
+- Consent withdrawn and no other legal ground
+- Data subject objects and no overriding legitimate grounds
+- Personal data unlawfully processed
+- Compliance with legal obligation
+- Data collected in relation to information society services to children
+
+Article 18 - Right to restriction of processing
+Data subject has right to obtain restriction when:
+- Accuracy of data is contested
+- Processing is unlawful but subject opposes erasure
+- Controller no longer needs data but subject needs it for legal claims
+- Subject has objected pending verification
+
+Article 20 - Right to data portability
+Data subject has right to receive personal data in structured, commonly used, machine-readable format and right to transmit to another controller
+
+Article 21 - Right to object
+Data subject has right to object to processing based on legitimate interests or for direct marketing purposes
+
+Article 22 - Automated individual decision-making, including profiling
+Data subject has right not to be subject to decisions based solely on automated processing which produces legal effects
+
+===== CHAPTER 4: CONTROLLER AND PROCESSOR =====
+
+Article 24 - Responsibility of the controller
+Controller shall implement appropriate technical and organizational measures to ensure compliance
+
+Article 25 - Data protection by design and by default
+Controller shall implement appropriate measures to ensure only necessary personal data is processed
+
+Article 28 - Processor
+Processing by processor shall be governed by contract specifying:
+- Subject-matter and duration
+- Nature and purpose
+- Type of personal data
+- Categories of data subjects
+- Obligations and rights of controller
+
+Article 30 - Records of processing activities
+Controller and processor must maintain records of processing activities
+
+Article 32 - Security of processing
+Must implement appropriate technical and organizational measures:
+- Pseudonymisation and encryption
+- Confidentiality, integrity, availability and resilience
+- Ability to restore availability and access
+- Regular testing and evaluation
+
+Article 33 - Notification of personal data breach to supervisory authority
+Breach must be notified to supervisory authority within 72 hours unless unlikely to result in risk
+
+Article 34 - Communication of personal data breach to data subject
+When breach likely to result in high risk, controller must communicate to data subject without undue delay
+
+===== CHAPTER 5: TRANSFERS OF PERSONAL DATA =====
+
+Article 44 - General principle for transfers
+Transfer to third country only if controller/processor complies with conditions laid down in this chapter
+
+Article 45 - Transfers on basis of adequacy decision
+Transfer may take place where Commission has decided third country ensures adequate level of protection
+
+Article 46 - Transfers subject to appropriate safeguards
+In absence of adequacy decision, transfers only if appropriate safeguards provided:
+- Legally binding instrument
+- Binding corporate rules
+- Standard data protection clauses
+- Approved code of conduct
+- Approved certification mechanism
+
+===== CHAPTER 6: INDEPENDENT SUPERVISORY AUTHORITIES =====
+
+Article 37 - Designation of data protection officer (DPO)
+DPO must be designated where:
+- Processing carried out by public authority
+- Core activities require regular and systematic monitoring on large scale
+- Core activities consist of processing special categories of data on large scale
+
+Article 38 - Position of data protection officer
+Contact details must be published and communicated to supervisory authority
+
+Article 39 - Tasks of data protection officer
+- Monitor compliance with GDPR
+- Advise on data protection impact assessments
+- Cooperate with supervisory authority
+- Act as contact point
+
+===== SPECIAL CATEGORIES OF DATA =====
+
+Article 9 - Processing of special categories of personal data
+Prohibited unless explicit consent or specific conditions met:
+- Racial or ethnic origin
+- Political opinions
+- Religious or philosophical beliefs
+- Trade union membership
+- Genetic data
+- Biometric data
+- Health data
+- Sex life or sexual orientation
+
+Article 8 - Conditions applicable to child's consent (information society services)
+- Child must be at least 16 years (Member States may lower to 13)
+- If under age, consent must be given by holder of parental responsibility
+- Controller shall make reasonable efforts to verify parental consent
+
+===== PENALTIES =====
+
+Article 83 - General conditions for imposing administrative fines
+Fines up to €20,000,000 or 4% of total worldwide annual turnover, whichever is higher
+
+===== KEY REQUIREMENTS SUMMARY =====
+
+1. LEGAL BASIS: Must have valid legal basis for processing (consent, contract, legal obligation, etc.)
+
+2. TRANSPARENCY: Clear, concise information about data processing in plain language
+
+3. DATA SUBJECT RIGHTS: Must facilitate exercise of all rights (access, rectification, erasure, portability, restriction, objection)
+
+4. DATA MINIMIZATION: Collect only necessary data for specified purposes
+
+5. PURPOSE LIMITATION: Data collected for specific, explicit, legitimate purposes
+
+6. RETENTION: Keep data only as long as necessary
+
+7. SECURITY: Implement appropriate technical and organizational security measures
+
+8. BREACH NOTIFICATION: Notify authority within 72 hours, notify subjects if high risk
+
+9. DPO: Appoint Data Protection Officer when required
+
+10. INTERNATIONAL TRANSFERS: Ensure adequate protection for data transferred outside EU
+
+11. CHILDREN'S DATA: Special protections for children under 16 (or 13-16 depending on member state)
+
+12. CONSENT: Must be freely given, specific, informed, unambiguous, and withdrawable
+
+13. AUTOMATED DECISIONS: Right not to be subject to solely automated decisions with legal effects
+
+14. RECORDS: Maintain records of processing activities
+
+15. IMPACT ASSESSMENTS: Conduct DPIAs for high-risk processing

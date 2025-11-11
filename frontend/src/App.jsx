@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Layout from "./components/Layout";
 import HomePage from "./components/HomePage";
 import Chatbot from "./components/Chatbot";
+import PrivacyAgentHub from "./components/PrivacyAgentHub";
 import LoginPage from "./components/LoginPage";
 import SignUpPage from "./components/SignUpPage";
 import { Loader } from "lucide-react";
 
 function App() {
   const [activeChat, setActiveChat] = useState(null);
+  const [currentView, setCurrentView] = useState("home"); // 'home', 'chat', or 'agents'
   const [isLoading, setIsLoading] = useState(true); // Manages loading state for async operations
   const [user, setUser] = useState(null);
   const [authMode, setAuthMode] = useState("login");
@@ -38,9 +40,19 @@ function App() {
 
     const handleHashChange = async () => {
       const hash = window.location.hash.substring(1);
+
+      // Check for special views
+      if (hash === "agents") {
+        setCurrentView("agents");
+        setActiveChat(null);
+        setIsLoading(false);
+        return;
+      }
+
       if (hash && !isNaN(hash)) {
         setIsLoading(true); // Set loading before fetching
         setActiveChat(null); // Clear previous chat to prevent showing stale data
+        setCurrentView("chat");
         try {
           const response = await fetch(`/api/chats/${hash}`);
           if (!response.ok) {
@@ -52,11 +64,13 @@ function App() {
         } catch (error) {
           console.error("Failed to fetch chat history:", error);
           setActiveChat(null);
+          setCurrentView("home");
         } finally {
           setIsLoading(false); // Unset loading after fetch completes
         }
       } else {
         setActiveChat(null); // If no hash, no active chat
+        setCurrentView("home");
       }
     };
 
@@ -90,7 +104,15 @@ function App() {
         </div>
       );
     }
-    if (activeChat) {
+    if (currentView === "agents") {
+      return (
+        <PrivacyAgentHub
+          policyId={activeChat?.policy_id}
+          policyText={activeChat?.policy_text}
+        />
+      );
+    }
+    if (activeChat && currentView === "chat") {
       return <Chatbot result={activeChat} />;
     }
     return <HomePage onAnalysisComplete={handleAnalysisComplete} />;

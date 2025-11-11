@@ -23,13 +23,23 @@ const SignUpPage = ({ onSignupSuccess, onSwitchToLogin }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
-      const data = await response.json();
+
+      // Check if response is ok before parsing JSON
       if (!response.ok) {
-        throw new Error(data.error || "Sign up failed");
+        let errorMessage = "Sign up failed";
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch {
+          errorMessage = `Server error: ${response.status}`;
+        }
+        throw new Error(errorMessage);
       }
+
+      const data = await response.json();
       onSignupSuccess();
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Unable to connect to server. Please try again.");
     } finally {
       setIsLoading(false);
     }

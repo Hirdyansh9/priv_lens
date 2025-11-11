@@ -1,0 +1,210 @@
+CHILDREN'S ONLINE PRIVACY PROTECTION ACT (COPPA)
+
+15 U.S.C. §§ 6501–6506 and 16 CFR Part 312
+
+===== OVERVIEW =====
+
+COPPA imposes requirements on operators of websites or online services directed to children under 13 years of age, and on operators of websites or online services that have actual knowledge that they are collecting personal information from children under 13.
+
+===== KEY DEFINITIONS =====
+
+Child: Individual under the age of 13
+
+Personal Information includes:
+- First and last name
+- Home or physical address including street name and city or town
+- Online contact information (email address, username, instant messaging, etc.)
+- Screen name or user name that functions as online contact information
+- Telephone number
+- Social Security number
+- Persistent identifier (cookies, IP address, device ID, etc.)
+- Photograph, video, or audio file containing child's image or voice
+- Geolocation information
+- Information concerning the child or child's parents collected from the child that is combined with an identifier
+
+Operator: Person who operates website or online service directed to children or has actual knowledge of collecting personal information from children
+
+Verifiable Parental Consent: Reasonable effort to ensure that parent of child receives notice and consents to collection, use, or disclosure of personal information
+
+===== COPPA REQUIREMENTS =====
+
+1. PRIVACY POLICY
+Operators must post clear and comprehensive online privacy policy describing:
+- Types of personal information collected from children
+- How information is collected (directly or passively)
+- How operator uses personal information
+- Whether operator discloses information to third parties
+- That parent can review child's personal information, direct operator to delete it, and refuse further collection
+- That operator cannot condition child's participation on providing more information than reasonably necessary
+- Name, address, telephone number, and email address of operator
+
+2. DIRECT NOTICE TO PARENTS
+Before collecting personal information, operator must provide direct notice to parents containing:
+- Operator's contact information
+- Types of personal information to be collected
+- How information will be used
+- Whether information will be disclosed to third parties
+- That parent can review information, have it deleted, and refuse further collection
+- That operator needs parental consent and will not collect information without it
+
+3. VERIFIABLE PARENTAL CONSENT
+Operator must obtain verifiable parental consent before collecting, using, or disclosing personal information from children.
+
+Acceptable Methods for Obtaining Consent:
+- Signed consent form (mail, fax, or electronic scan)
+- Credit card, debit card, or other online payment for monetary transaction
+- Connecting to trained personnel via video-conference or telephone
+- Government-issued ID checked against database
+- Face recognition technology
+- Knowledge-based authentication
+- Multi-factor authentication
+
+Email Plus: For internal use only (not disclosure to third parties), email consent with confirmation is acceptable
+
+4. PARENTAL RIGHTS
+Parents have the right to:
+- Review personal information collected from their child
+- Direct operator to delete child's personal information
+- Refuse to permit further collection or use of child's information
+
+Operator must provide means for parent to exercise these rights
+
+5. CONDITIONAL ACCESS PROHIBITION
+Operator cannot condition child's participation in activity on child disclosing more personal information than is reasonably necessary for that activity
+
+6. DATA SECURITY AND RETENTION
+Operator must:
+- Establish and maintain reasonable procedures to protect confidentiality, security, and integrity of personal information
+- Retain personal information collected from children only as long as reasonably necessary to fulfill purpose for which it was collected
+- Delete information using reasonable measures to protect against unauthorized access or use
+
+7. SAFE HARBOR PROGRAM
+FTC may approve self-regulatory guidelines that meet or exceed COPPA requirements
+
+===== SPECIAL RULES =====
+
+Support for Internal Operations (Exception to Consent Requirement):
+Operators may collect persistent identifiers without parental consent for:
+- Maintaining or analyzing functioning of website/service
+- Performing network communications
+- Authentication or security purposes
+- Serving contextual advertising
+- Capping frequency of advertising
+- Protecting safety of website/service or users
+- Compliance with legal requirements
+
+Third Party Collection:
+Operator responsible for ensuring that plug-ins or advertising networks on its site comply with COPPA
+
+Educational Context:
+Schools may provide consent on behalf of parents for collection of students' personal information for educational purposes, but only for use and benefit of the school
+
+===== ENFORCEMENT =====
+
+Violations:
+Subject to civil penalty of up to $46,517 per violation (adjusted for inflation)
+
+FTC Enforcement:
+Federal Trade Commission has primary enforcement authority
+
+State Attorneys General:
+May bring civil actions on behalf of state residents
+
+===== BEST PRACTICES FOR COMPLIANCE =====
+
+1. AGE SCREENING
+Implement neutral age screening mechanism to determine if users are under 13
+
+2. PRIVACY POLICY
+- Post clearly and prominently
+- Use plain language appropriate for parents
+- Include all required elements
+- Update as practices change
+
+3. PARENTAL NOTICE
+- Provide direct notice before collection
+- Use clear, understandable language
+- Include all required information
+- Send via method that parent provided
+
+4. CONSENT MECHANISM
+- Choose appropriate verification method based on data use
+- Keep records of consent
+- Implement mechanism for parents to revoke consent
+
+5. PARENTAL ACCESS
+- Provide reasonable means for parents to review information
+- Respond to requests promptly
+- Verify identity of requesting parent
+- Provide information in readable format
+
+6. DATA SECURITY
+- Use encryption for data in transit and at rest
+- Implement access controls
+- Regular security assessments
+- Train staff on COPPA requirements
+- Incident response plan for breaches
+
+7. DATA MINIMIZATION
+- Collect only information necessary for activity
+- Don't condition participation on unnecessary collection
+- Delete information when no longer needed
+
+8. THIRD PARTY MANAGEMENT
+- Vet third parties for COPPA compliance
+- Include COPPA obligations in contracts
+- Monitor third party practices
+- Ensure plug-ins and ad networks comply
+
+9. RECORD KEEPING
+- Maintain records of parental consents
+- Document compliance efforts
+- Keep audit trail of deletions
+
+10. STAFF TRAINING
+- Train employees on COPPA requirements
+- Ensure customer service can handle parental requests
+- Regular compliance reviews
+
+===== RED FLAGS FOR NON-COMPLIANCE =====
+
+- No privacy policy or incomplete policy
+- Collecting personal information without parental consent
+- No age screening mechanism
+- Unable to demonstrate parental consent
+- Sharing information with third parties without consent
+- No process for parental access or deletion requests
+- Retaining information longer than necessary
+- Inadequate data security measures
+- Conditioning participation on unnecessary data collection
+- No mechanism for parents to revoke consent
+
+===== COPPA COMPLIANCE CHECKLIST =====
+
+□ Posted clear, comprehensive privacy policy
+□ Implemented age screening mechanism
+□ Direct notice to parents before collection
+□ Verifiable parental consent obtained
+□ Process for parents to review child's information
+□ Process for parents to delete child's information
+□ Process for parents to refuse further collection
+□ Do not condition participation on unnecessary data
+□ Reasonable data security measures in place
+□ Delete data when no longer necessary
+□ Third parties comply with COPPA
+□ Safe Harbor certification (if applicable)
+□ Staff trained on COPPA requirements
+□ Records of consents maintained
+□ Parental rights clearly communicated
+
+===== RELATED REGULATIONS =====
+
+State Laws:
+- California Consumer Privacy Act (CCPA) - additional protections for minors
+- California Age-Appropriate Design Code Act
+- Various state student privacy laws
+
+International:
+- GDPR Article 8 - child consent at 13-16 (member state dependent)
+- UK Age Appropriate Design Code
+- Australia Online Privacy Code

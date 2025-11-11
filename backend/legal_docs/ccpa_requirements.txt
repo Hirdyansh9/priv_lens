@@ -1,0 +1,279 @@
+CALIFORNIA CONSUMER PRIVACY ACT (CCPA) / CALIFORNIA PRIVACY RIGHTS ACT (CPRA)
+
+Cal. Civ. Code §§ 1798.100-1798.199
+
+===== OVERVIEW =====
+
+CCPA (effective January 2020) and CPRA (effective January 2023) provide California consumers with rights regarding their personal information.
+
+Applies to businesses that:
+- Have gross annual revenues over $25 million
+- Buy, sell, or share personal information of 100,000+ California consumers or households
+- Derive 50%+ of annual revenues from selling or sharing consumers' personal information
+
+===== KEY DEFINITIONS =====
+
+Personal Information: Information that identifies, relates to, describes, is reasonably capable of being associated with, or could reasonably be linked to a particular consumer or household
+
+Categories of Personal Information:
+- Identifiers (name, address, email, IP address, etc.)
+- Commercial information (purchase history, tendencies)
+- Biometric information
+- Internet or network activity
+- Geolocation data
+- Audio, electronic, visual, or similar information
+- Professional or employment-related information
+- Education information
+- Inferences drawn from above to create profile
+
+Sensitive Personal Information:
+- Social security, driver's license, passport numbers
+- Account credentials
+- Precise geolocation
+- Racial or ethnic origin
+- Religious or philosophical beliefs
+- Union membership
+- Genetic data
+- Biometric data for identification
+- Health information
+- Sex life or sexual orientation
+- Citizenship or immigration status
+
+Sale: Selling, renting, releasing, disclosing, disseminating, making available, transferring, or communicating personal information for monetary or other valuable consideration
+
+Share: Sharing, renting, releasing, disclosing, disseminating, making available, transferring, or communicating personal information for cross-context behavioral advertising
+
+===== CONSUMER RIGHTS =====
+
+1. RIGHT TO KNOW
+Consumers have right to request:
+- Categories of personal information collected
+- Categories of sources of personal information
+- Business or commercial purpose for collecting/selling/sharing
+- Categories of third parties to whom information is disclosed
+- Specific pieces of personal information collected
+
+Response time: 45 days (extendable by 45 days)
+
+2. RIGHT TO DELETE
+Consumers can request deletion of personal information collected from them
+
+Exceptions:
+- Complete transaction
+- Detect security incidents
+- Debug to identify and repair errors
+- Exercise free speech or ensure another's exercise of free speech
+- Comply with California Electronic Communications Privacy Act
+- Engage in research in public interest
+- Enable solely internal uses reasonably aligned with consumer expectations
+- Comply with legal obligation
+- Make other internal and lawful uses reasonably compatible with context
+
+3. RIGHT TO CORRECT
+Consumers have right to request correction of inaccurate personal information
+
+4. RIGHT TO OPT-OUT
+Consumers have right to opt-out of:
+- Sale of personal information
+- Sharing of personal information for cross-context behavioral advertising
+
+Businesses must provide "Do Not Sell or Share My Personal Information" link
+
+5. RIGHT TO LIMIT USE OF SENSITIVE PERSONAL INFORMATION
+Consumers have right to limit use and disclosure of sensitive personal information to:
+- Performing services reasonably expected
+- Certain specified business purposes
+
+6. RIGHT TO NON-DISCRIMINATION
+Businesses cannot discriminate against consumers for exercising their rights:
+- Cannot deny goods or services
+- Cannot charge different prices or rates
+- Cannot provide different level or quality of goods or services
+
+Exception: Businesses may offer financial incentives or charge different prices if reasonably related to value of consumer's data
+
+===== BUSINESS OBLIGATIONS =====
+
+1. PRIVACY POLICY REQUIREMENTS
+Must include:
+- Categories of personal information collected
+- Categories of sources
+- Business or commercial purposes for collection
+- Categories of third parties with whom information is shared
+- Categories of personal information sold or shared
+- Categories of sensitive personal information collected
+- Length of time each category will be retained (or criteria for determining)
+- Consumer rights and how to exercise them
+- Contact information for privacy questions
+
+Must update at least annually
+
+2. NOTICE AT COLLECTION
+Must inform consumers at or before collection:
+- Categories of personal information to be collected
+- Purposes for which categories will be used
+- If selling or sharing personal information
+- Length of time information will be retained (or criteria)
+- Link to privacy policy
+
+3. NOTICE OF RIGHT TO OPT-OUT
+Must provide clear and conspicuous link titled "Do Not Sell or Share My Personal Information"
+
+For sensitive personal information: "Limit the Use of My Sensitive Personal Information"
+
+4. VERIFICATION OF REQUESTS
+Must verify identity of consumer making request:
+- Two-factor verification for account holders
+- Match three data points for non-account holders
+- Cannot require account creation to submit request
+- Use reasonable verification methods commensurate with sensitivity and risk
+
+5. RESPONSE REQUIREMENTS
+- Respond within 45 days (extendable by 45 days)
+- If unable to verify, explain why
+- Provide information free of charge
+- For portable data, provide in readily usable format
+- Cover 12-month period preceding request
+
+6. AUTHORIZED AGENTS
+Must allow consumers to designate authorized agents to make requests on their behalf
+- May require written authorization from consumer
+- May verify consumer's identity
+- May verify agent's authority
+
+7. TRAINING
+Must train employees who handle consumer inquiries about privacy practices and consumer rights
+
+8. SERVICE PROVIDERS AND CONTRACTORS
+Contracts must:
+- Prohibit retention, use, or disclosure for purposes other than performing services
+- Prohibit sale or sharing of personal information
+- Prohibit combining personal information with other information
+- Grant business right to take reasonable and appropriate steps to ensure compliance
+
+===== MINORS' PERSONAL INFORMATION =====
+
+Under 16 Years:
+- Cannot sell or share personal information without affirmative authorization (opt-in)
+- Under 13: requires parental consent
+- 13-15: may provide own consent
+
+Businesses with actual knowledge of collecting information from minors must comply
+
+===== DATA SECURITY =====
+
+Must implement and maintain reasonable security procedures and practices appropriate to nature of personal information
+
+In event of breach, must notify affected California residents
+
+===== RISK ASSESSMENTS =====
+
+CPRA requires annual cybersecurity audits for businesses that process:
+- Personal information of 10+ million consumers
+- Share information of 100,000+ consumers
+- Derive 50%+ revenue from sharing personal information
+
+===== EXEMPTIONS =====
+
+Certain information types exempt:
+- Medical information governed by CMIA
+- Protected health information under HIPAA
+- Clinical trial data
+- Personal information collected as part of research subject to federal regulations
+- Information covered by GLBA, FCRA, Driver's Privacy Protection Act
+
+B2B communications exempt until January 1, 2023 (now subject to CPRA)
+
+===== ENFORCEMENT =====
+
+California Privacy Protection Agency (CPPA):
+- Primary enforcement authority
+- Can conduct investigations
+- Issue regulations
+
+Civil Penalties:
+- Up to $2,500 per violation
+- Up to $7,500 per intentional violation or violations involving minors
+
+Private Right of Action:
+For data breaches involving specific personal information:
+- $100-$750 per consumer per incident
+- Or actual damages, whichever is greater
+- Requires 30-day notice to business to cure
+
+===== COMPLIANCE CHECKLIST =====
+
+□ Determine if CCPA/CPRA applies to your business
+□ Update privacy policy with required disclosures
+□ Implement notice at collection
+□ Add "Do Not Sell or Share" link to website
+□ Create process for consumer requests (know, delete, correct, opt-out)
+□ Implement identity verification procedures
+□ Set up systems to track personal information collected, used, disclosed
+□ Review and update service provider contracts
+□ Implement opt-in for minors under 16
+□ Train staff on privacy practices and consumer rights
+□ Establish reasonable security measures
+□ Implement authorized agent procedures
+□ Create process for responding within 45 days
+□ Document compliance efforts
+□ Review data retention policies
+□ Assess need for cybersecurity audit
+
+===== BEST PRACTICES =====
+
+1. DATA MAPPING
+- Inventory all personal information collected
+- Document sources, purposes, recipients
+- Track data flows through organization
+
+2. REQUEST MANAGEMENT
+- Automated request intake system
+- Centralized tracking
+- Clear response workflows
+- Audit trail of actions taken
+
+3. VENDOR MANAGEMENT
+- Vet vendors for CCPA compliance
+- Update contracts with required terms
+- Monitor vendor practices
+- Maintain vendor inventory
+
+4. TECHNICAL CONTROLS
+- Implement data minimization
+- Use encryption
+- Access controls based on need
+- Data retention schedules
+- Secure deletion procedures
+
+5. DOCUMENTATION
+- Maintain records of consumer requests and responses
+- Document verification methods
+- Keep copies of privacy notices
+- Record training activities
+
+===== CCPA VS. GDPR KEY DIFFERENCES =====
+
+Scope:
+- CCPA: California residents
+- GDPR: EU residents
+
+Personal Information:
+- CCPA: Broadly defined, includes household data
+- GDPR: More specific definition
+
+Rights:
+- CCPA: Know, delete, correct, opt-out, limit
+- GDPR: Access, rectification, erasure, portability, restriction, object
+
+Consent:
+- CCPA: Opt-out model (except minors)
+- GDPR: Opt-in model required for most processing
+
+Enforcement:
+- CCPA: State agency + private right of action for breaches
+- GDPR: Supervisory authorities + higher fines
+
+Data Protection Officer:
+- CCPA: Not required
+- GDPR: Required in certain circumstances

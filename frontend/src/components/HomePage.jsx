@@ -134,104 +134,106 @@ const HomePage = ({ onAnalysisComplete, onAnalysisCreated }) => {
 
   return (
     <div className="flex items-center justify-center min-h-full p-4 bg-neutral-50">
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="text-center md:text-left md:-mt-8">
-          <div className="inline-flex items-center gap-4 mb-6">
-            <div className="w-16 h-16 bg-neutral-900 rounded-2xl flex items-center justify-center shadow-lg">
-              <Search className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-neutral-800 tracking-tighter">
-              Privacy<span className="text-blue-600">Lens</span>
-            </h1>
-          </div>
-          <p className="text-lg text-neutral-600 max-w-md mx-auto md:mx-0">
-            Your AI-powered privacy policy analyst. Get instant clarity by
-            pasting text, uploading a file, or providing a URL.
-          </p>
-        </div>
-
-        {/* Right Column: Input Form */}
-        <div className="bg-white p-2 rounded-2xl shadow-xl shadow-neutral-200/50 border">
-          <div className="flex justify-center border-b border-neutral-200">
-            <TabButton
-              tabName="text"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            >
-              <Type className="w-4 h-4" />
-              Paste Text
-            </TabButton>
-            <TabButton
-              tabName="file"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            >
-              <FileText className="w-4 h-4" />
-              Upload File
-            </TabButton>
-            <TabButton
-              tabName="url"
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            >
-              <Link className="w-4 h-4" />
-              From URL
-            </TabButton>
-          </div>
-          <div className="p-6 space-y-4">
-            {error && (
-              <div className="bg-red-100 text-red-700 px-4 py-2 rounded-md text-sm">
-                {error}
+      <div className="w-full max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <div className="text-center md:text-left md:-mt-8">
+            <div className="inline-flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-neutral-900 rounded-2xl flex items-center justify-center shadow-lg">
+                <Search className="w-8 h-8 text-white" />
               </div>
-            )}
-            {activeTab === "text" && (
-              <textarea
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Paste the full text of the privacy policy here..."
-                className="w-full h-40 p-3 border border-neutral-200 rounded-lg bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-900"
-              />
-            )}
-            {activeTab === "file" && (
-              <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-neutral-300 rounded-lg cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors">
-                <div className="flex flex-col items-center justify-center text-center">
-                  <p className="text-sm text-neutral-600">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-neutral-500 mt-1">
-                    TXT or PDF files supported
-                  </p>
-                  {fileName && (
-                    <p className="text-xs font-semibold text-blue-600 mt-2">
-                      {fileName}
-                    </p>
-                  )}
+              <h1 className="text-5xl md:text-6xl font-bold text-neutral-800 tracking-tighter">
+                Privacy<span className="text-blue-600">Lens</span>
+              </h1>
+            </div>
+            <p className="text-lg text-neutral-600 max-w-md mx-auto md:mx-0">
+              Your AI-powered privacy policy analyst. Get instant clarity by
+              pasting text, uploading a file, or providing a URL.
+            </p>
+          </div>
+
+          {/* Right Column: Input Form */}
+          <div className="bg-white p-2 rounded-2xl shadow-xl shadow-neutral-200/50 border">
+            <div className="flex justify-center border-b border-neutral-200">
+              <TabButton
+                tabName="text"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              >
+                <Type className="w-4 h-4" />
+                Paste Text
+              </TabButton>
+              <TabButton
+                tabName="file"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              >
+                <FileText className="w-4 h-4" />
+                Upload File
+              </TabButton>
+              <TabButton
+                tabName="url"
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              >
+                <Link className="w-4 h-4" />
+                From URL
+              </TabButton>
+            </div>
+            <div className="p-6 space-y-4">
+              {error && (
+                <div className="bg-red-100 text-red-700 px-4 py-2 rounded-md text-sm">
+                  {error}
                 </div>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".txt,.pdf"
-                  onChange={handleFileChange}
+              )}
+              {activeTab === "text" && (
+                <textarea
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Paste the full text of the privacy policy here..."
+                  className="w-full h-40 p-3 border border-neutral-200 rounded-lg bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-900"
                 />
-              </label>
-            )}
-            {activeTab === "url" && (
-              <input
-                type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://example.com/privacy"
-                className="w-full p-3 border border-neutral-200 rounded-lg bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-900"
-              />
-            )}
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className={`${sendButtonClasses} w-full flex justify-center items-center gap-2 px-4 py-3 text-white font-semibold rounded-lg disabled:cursor-not-allowed`}
-            >
-              {isLoading ? <LoaderIcon /> : "Analyze Policy"}
-            </button>
+              )}
+              {activeTab === "file" && (
+                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-neutral-300 rounded-lg cursor-pointer bg-neutral-50 hover:bg-neutral-100 transition-colors">
+                  <div className="flex flex-col items-center justify-center text-center">
+                    <p className="text-sm text-neutral-600">
+                      <span className="font-semibold">Click to upload</span> or
+                      drag and drop
+                    </p>
+                    <p className="text-xs text-neutral-500 mt-1">
+                      TXT or PDF files supported
+                    </p>
+                    {fileName && (
+                      <p className="text-xs font-semibold text-blue-600 mt-2">
+                        {fileName}
+                      </p>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept=".txt,.pdf"
+                    onChange={handleFileChange}
+                  />
+                </label>
+              )}
+              {activeTab === "url" && (
+                <input
+                  type="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com/privacy"
+                  className="w-full p-3 border border-neutral-200 rounded-lg bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                />
+              )}
+              <button
+                onClick={handleSubmit}
+                disabled={isLoading}
+                className={`${sendButtonClasses} w-full flex justify-center items-center gap-2 px-4 py-3 text-white font-semibold rounded-lg disabled:cursor-not-allowed`}
+              >
+                {isLoading ? <LoaderIcon /> : "Analyze Policy"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
